@@ -1,0 +1,9 @@
+@import "./assets/variables.scss";
+
+.main {
+  margin-top: 40px;
+  &__wrapper {
+    margin: 0 auto;
+    width: $content-width-xl;
+  }
+}

@@ -1,0 +1,28 @@
+@import "../../assets/variables.scss";
+
+.card {
+  background-color: $white;
+  border-radius: 10px;
+  @extend %shadow;
+
+  &__imageWrapper {
+    padding: 30px;
+  }
+
+  &__imageFixer {
+    height: 0;
+    padding-bottom: 100%;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__title {
+    color: $dark;
+    text-transform: capitalize;
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: bold;
+  }
+}

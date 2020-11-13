@@ -1,24 +1,31 @@
 import React from "react";
+import classnames from "classnames";
+import s from "./App.module.scss";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import "./App.css";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Pokemons from "./components/Pokemons/Pokemons";
 import Pokemon from "./components/Pokemon/Pokemon";
+import Header from "./components/Header/Header";
 
 const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Switch>
-          <Redirect exact from="/" to="/pokemons" />
-          <Redirect exact from="/pokemon" to="/pokemons" />
+        <Header />
+        <div className={s.main}>
+          <div className={s.main__wrapper}>
+            <Switch>
+              <Redirect exact from="/" to="/home" />
+              <Redirect exact from="/pokemon" to="/home" />
 
-          <Route path="/pokemons" render={() => <Pokemons />} />
-          <Route path="/pokemon/:id" render={() => <Pokemon />} />
+              <Route path="/home" render={() => <Pokemons limit={8} />} />
+              <Route path="/pokemon/:id" render={() => <Pokemon />} />
 
-          <Route path="*" render={() => <div>404</div>} />
-        </Switch>
+              <Route path="*" render={() => <div>404</div>} />
+            </Switch>
+          </div>
+        </div>
       </BrowserRouter>
     </Provider>
   );

@@ -1,36 +1,35 @@
-import { RootState } from "./../store";
-import { fetchPokemon, fetchPokemons } from "./../../api/api";
+import { RootState } from "../store";
+import { fetchPokemon, fetchPokemons } from "../../api/api";
 import * as PokemonTypes from "../../types/PokemonTypes";
 import { ThunkAction } from "redux-thunk";
 
 const SET_COUNT = "SET COUNT";
-const SET_PAGES_LINKS = "SET PAGES LINKS";
 const SET_POKEMONS = "SET POKEMONS";
+const SET_OFFSET = "SET OFFSET";
 
-export type MainState = {
+export type HomeState = {
   count: number;
   pokemons: Array<PokemonTypes.Pokemon>;
-  previous: string | null;
-  next: string | null;
+  offset: number;
 };
 
-const initialState: MainState = {
+const initialState: HomeState = {
   count: 0,
   pokemons: [],
-  previous: null,
-  next: null,
+  offset: 0,
 };
 
-export const mainReducer = (
-  state: MainState = initialState,
+export const homeReducer = (
+  state: HomeState = initialState,
   action: ActionTypes
-): MainState => {
+): HomeState => {
   switch (action.type) {
     case SET_COUNT:
       return { ...state, count: action.count };
 
-    case SET_PAGES_LINKS:
-      return { ...state, previous: action.previous, next: action.next };
+    case SET_OFFSET:
+      debugger;
+      return { ...state, offset: action.offset };
 
     case SET_POKEMONS:
       return { ...state, pokemons: action.pokemons };
@@ -40,7 +39,7 @@ export const mainReducer = (
   }
 };
 
-type ActionTypes = SetCountAction | SetPagesLinksAction | SetPokemonsAction;
+type ActionTypes = SetCountAction | SetOffsetAction | SetPokemonsAction;
 
 type SetCount = typeof SET_COUNT;
 
@@ -54,21 +53,16 @@ const setCount = (count: number): SetCountAction => ({
   count,
 });
 
-type SetPagesLinks = typeof SET_PAGES_LINKS;
+type SetOffset = typeof SET_OFFSET;
 
-type SetPagesLinksAction = {
-  type: SetPagesLinks;
-  previous: string | null;
-  next: string | null;
+type SetOffsetAction = {
+  type: SetOffset;
+  offset: number;
 };
 
-export const setPagesLinks = (
-  previous: string | null,
-  next: string | null
-): SetPagesLinksAction => ({
-  type: SET_PAGES_LINKS,
-  previous,
-  next,
+export const setOffset = (offset: number): SetOffsetAction => ({
+  type: SET_OFFSET,
+  offset,
 });
 
 type SetPokemons = typeof SET_POKEMONS;
@@ -85,7 +79,7 @@ const setPokemons = (
   pokemons,
 });
 
-export const getPokemons = (
+export const loadPokemons = (
   limit: number,
   offset: number
 ): ThunkAction<void, RootState, unknown, ActionTypes> => async (dispatch) => {
@@ -94,9 +88,8 @@ export const getPokemons = (
   const pokemons: Array<PokemonTypes.Pokemon> = await Promise.all(
     data.results.map((ref) => fetchPokemon(ref.name))
   );
-  debugger;
 
+  dispatch(setOffset(offset));
   dispatch(setCount(data.count));
-  dispatch(setPagesLinks(data.previous, data.next));
   dispatch(setPokemons(pokemons));
 };

@@ -1,0 +1,18 @@
+$white: #ffffff;
+$light: #eeeeee;
+$lighter: #f8f8f8;
+$gray: #868686;
+$dark: #333333;
+$primary-light: #f0f5ff;
+$primary: #3d72db;
+$primary-dark: #345cad;
+$danger: #db3d3d;
+$info: #07b9ff;
+
+%shadow {
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+$content-width-xl: 1200px;
+$content-width-lg: 728px;
+$content-width-sm: 300px;

@@ -1,0 +1,21 @@
+@import "../../assets/variables.scss";
+
+.button {
+  cursor: pointer;
+  color: $dark;
+  border-radius: 5px;
+  background-color: $white;
+  border: none;
+  padding: 7px 20px;
+  @extend %shadow;
+
+  &_primary {
+    background-color: $primary;
+    color: $white;
+
+    &:disabled {
+      background-color: $primary-light;
+      color: $dark;
+    }
+  }
+}
