@@ -7,13 +7,13 @@ const Header = () => {
   return (
     <div className={s.header}>
       <div className={s.header__wrapper}>
-        <NavLink className={s.nav__link} to="/pokemons">
+        <NavLink className={s.nav__link} to="/home">
           <h1 className={s.header__brand}>Pokemon</h1>
         </NavLink>
         <nav className={classnames(s.header__nav, s.nav)}>
           <ul className={s.nav__list}>
             <li className={s.nav__item}>
-              <NavLink className={s.nav__link} to="/pokemons">
+              <NavLink className={s.nav__link} to="/home">
                 Home
               </NavLink>
             </li>

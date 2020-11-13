@@ -3,27 +3,28 @@ import classnames from "classnames";
 import s from "./Button.module.scss";
 
 type PropsType = {
-  text: string;
+  className?: string;
   variant?: "primary";
   disabled?: boolean;
   onClick?: () => void;
 };
 
 const Button: FC<PropsType> = ({
-  text,
+  className,
   variant,
   disabled = false,
   onClick,
+  children,
 }) => {
   return (
     <button
-      className={classnames(s.button, {
+      className={classnames(className, s.button, {
         [s.button_primary]: variant === "primary",
       })}
       onClick={onClick}
       disabled={disabled}
     >
-      {text}
+      {children}
     </button>
   );
 };

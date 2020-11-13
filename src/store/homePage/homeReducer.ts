@@ -28,7 +28,6 @@ export const homeReducer = (
       return { ...state, count: action.count };
 
     case SET_OFFSET:
-      debugger;
       return { ...state, offset: action.offset };
 
     case SET_POKEMONS:

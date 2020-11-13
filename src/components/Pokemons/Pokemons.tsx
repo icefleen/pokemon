@@ -63,33 +63,38 @@ const Pokemons: FC<PropTypes> = ({
       </div>
       <div className={s.gallery__buttons}>
         <Button
-          text="<< First"
+          className={s["d-sm-none"]}
           variant="primary"
           disabled={offset < limit}
           onClick={loadFirstPage}
-        />
+        >
+          &lt;&lt;<span className={s["d-sm-none"]}> First</span>
+        </Button>
         <Button
-          text="< Prev"
           variant="primary"
           disabled={offset < limit}
           onClick={loadPrevPage}
-        />
+        >
+          &lt;<span className={s["d-sm-none"]}> Prev</span>
+        </Button>
+        <Button variant="primary">{`${offset / limit + 1} / ${Math.ceil(
+          count / limit
+        )}`}</Button>
         <Button
-          text={`${offset / limit + 1} / ${Math.ceil(count / limit)}`}
-          variant="primary"
-        />
-        <Button
-          text="Next >"
           variant="primary"
           disabled={offset + 8 >= count}
           onClick={loadNextPage}
-        />
+        >
+          <span className={s["d-sm-none"]}>Next </span>&gt;
+        </Button>
         <Button
-          text="Last >>"
+          className={s["d-sm-none"]}
           variant="primary"
           disabled={offset + 8 >= count}
           onClick={loadLastPage}
-        />
+        >
+          <span className={s["d-sm-none"]}>Last </span>&gt;&gt;
+        </Button>
       </div>
     </div>
   );

@@ -2,8 +2,27 @@
 
 .main {
   margin-top: 40px;
+  margin-bottom: 40px;
+
   &__wrapper {
     margin: 0 auto;
     width: $content-width-xl;
   }
 }
+
+@media screen and (max-width: 1279px) {
+  .main {
+    &__wrapper {
+      width: $content-width-lg;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main {
+    &__wrapper {
+      width: $content-width-sm;
+    }
+  }
+}
+

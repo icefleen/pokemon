@@ -26,3 +26,19 @@
     color: $dark;
   }
 }
+
+@media screen and (max-width: 1279px) {
+  .header {
+    &__wrapper {
+      width: $content-width-lg;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    &__wrapper {
+      width: $content-width-sm;
+    }
+  }
+}
