@@ -23,7 +23,9 @@ export const fetchPokemons = async (
   return response.data;
 };
 
-export const fetchPokemon = async (name: string): Promise<PokemonTypes.Pokemon> => {
+export const fetchPokemon = async (
+  name: string
+): Promise<PokemonTypes.Pokemon> => {
   const response = await instance.get<PokemonTypes.Pokemon>(`/pokemon/${name}`);
 
   return response.data;

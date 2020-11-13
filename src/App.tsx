@@ -16,7 +16,7 @@ const App = () => {
 
           <Route path="/pokemons" render={() => <Pokemons />} />
           <Route path="/pokemon/:id" render={() => <Pokemon />} />
-          
+
           <Route path="*" render={() => <div>404</div>} />
         </Switch>
       </BrowserRouter>

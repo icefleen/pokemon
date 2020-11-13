@@ -91,7 +91,9 @@ export const getPokemons = (
 ): ThunkAction<void, RootState, unknown, ActionTypes> => async (dispatch) => {
   const data = await fetchPokemons(limit, offset);
 
-  const pokemons: Array<PokemonTypes.Pokemon> = await Promise.all(data.results.map((ref) => fetchPokemon(ref.name)));
+  const pokemons: Array<PokemonTypes.Pokemon> = await Promise.all(
+    data.results.map((ref) => fetchPokemon(ref.name))
+  );
   debugger;
 
   dispatch(setCount(data.count));
