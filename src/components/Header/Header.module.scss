@@ -27,10 +27,17 @@
   }
 }
 
+.menuIcon {
+  width: 30px;
+  cursor: pointer;
+  display: none;
+}
+
 @media screen and (max-width: 1279px) {
   .header {
     &__wrapper {
       width: $content-width-lg;
+      padding: 20px;
     }
   }
 }
@@ -40,5 +47,13 @@
     &__wrapper {
       width: $content-width-sm;
     }
+  }
+
+  .nav {
+    display: none
+  }
+
+  .menuIcon {
+    display: block;
   }
 }

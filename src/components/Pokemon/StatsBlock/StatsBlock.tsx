@@ -11,7 +11,7 @@ const StatsBlock: FC<PropsType> = ({ stats }) => {
     <div className={s.block}>
       <div className={s.block__title}>Stats</div>
       {stats.map((stat) => (
-        <div className={s.block__line}>
+        <div className={s.block__line} key={stat.stat.name}>
           <span className={s.block__key}>{stat.stat.name}:</span>
           <span className={s.block__value}>{stat.base_stat}</span>
         </div>

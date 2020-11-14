@@ -29,7 +29,7 @@ const MovesBlock: FC<PropsType> = ({
           onChange={(e) => setSelectedVersion(e.target.value)}
         >
           {versions.map((version) => (
-            <option value={version.name}>{version.name}</option>
+            <option key={version.name} value={version.name}>{version.name}</option>
           ))}
         </select>
       </div>

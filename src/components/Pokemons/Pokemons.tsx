@@ -53,7 +53,7 @@ const Pokemons: FC<PropsType> = ({
     <div className={s.gallery}>
       <div className={classnames(s.gallery__cards, s.cards)}>
         {pokemons.map((pokemon) => (
-          <NavLink to={`/pokemon/${pokemon.id}`}>
+          <NavLink to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
             <Card
               image={pokemon.sprites.other["official-artwork"].front_default}
               title={pokemon.name}
