@@ -14,7 +14,7 @@ import {
   getPokemons,
 } from "../../store/homePage/homeSelectors";
 
-type PropTypes = {
+type PropsType = {
   pokemons: Array<PokemonTypes.Pokemon>;
   count: number;
   limit: number;
@@ -22,7 +22,7 @@ type PropTypes = {
   loadPokemons: (limit: number, offset: number) => void;
 };
 
-const Pokemons: FC<PropTypes> = ({
+const Pokemons: FC<PropsType> = ({
   pokemons,
   count,
   limit,
@@ -30,8 +30,8 @@ const Pokemons: FC<PropTypes> = ({
   loadPokemons,
 }) => {
   useEffect(() => {
-    loadPokemons(limit, 0);
-  }, [loadPokemons, limit]);
+    if (!pokemons.length) loadPokemons(limit, 0);
+  }, [loadPokemons, limit, pokemons]);
 
   const loadFirstPage = () => {
     loadPokemons(limit, 0);
@@ -113,4 +113,4 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
 
 export default connect(mapStateToProps, {
   loadPokemons,
-})(Pokemons);
+})(React.memo(Pokemons));

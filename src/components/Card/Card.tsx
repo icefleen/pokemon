@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import s from "./Card.module.scss";
 
-type PropTypes = {
+type PropsType = {
   image: string;
   title: string;
 };
 
-const Card: FC<PropTypes> = ({ image, title }) => {
+const Card: FC<PropsType> = ({ image, title }) => {
   return (
     <div className={s.card}>
       <div className={s.card__imageWrapper}>

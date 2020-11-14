@@ -1,5 +1,5 @@
 import { RootState } from "../store";
-import { fetchPokemon, fetchPokemons } from "../../api/api";
+import { fetchPokemonByName, fetchPokemons } from "../../api/api";
 import * as PokemonTypes from "../../types/PokemonTypes";
 import { ThunkAction } from "redux-thunk";
 
@@ -85,7 +85,7 @@ export const loadPokemons = (
   const data = await fetchPokemons(limit, offset);
 
   const pokemons: Array<PokemonTypes.Pokemon> = await Promise.all(
-    data.results.map((ref) => fetchPokemon(ref.name))
+    data.results.map((ref) => fetchPokemonByName(ref.name))
   );
 
   dispatch(setOffset(offset));

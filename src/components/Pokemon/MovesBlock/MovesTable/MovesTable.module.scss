@@ -1,0 +1,40 @@
+@import "../../../../assets/variables.scss";
+
+.table {
+  width: 100%;
+  padding: 0 20px;
+  border-collapse: collapse;
+
+  tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    &:hover {
+      background-color: $primary-light;
+    }
+  }
+
+  th {
+    text-align: left;
+    padding: 7px;
+  }
+
+  td {
+    padding: 7px;
+    text-transform: capitalize;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .table {
+    th:nth-child(6), td:nth-child(7n - 1), th:nth-child(7), td:nth-child(7n) {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .table {
+    th:nth-child(2), td:nth-child(7n - 5) {
+      display: none;
+    }
+  }
+}
