@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Menu isShowing={menuShowing} closeMenu={closeMenu} />
         <Header openMenu={openMenu} />
         <div className={s.main}>
