@@ -12,5 +12,3 @@ type RootReducer = typeof rootReducer;
 export type RootState = ReturnType<RootReducer>;
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
-
-console.log(store.getState());
