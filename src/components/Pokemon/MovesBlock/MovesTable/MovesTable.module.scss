@@ -25,7 +25,10 @@
 
 @media screen and (max-width: 1279px) {
   .table {
-    th:nth-child(6), td:nth-child(7n - 1), th:nth-child(7), td:nth-child(7n) {
+    th:nth-child(6),
+    td:nth-child(7n - 1),
+    th:nth-child(7),
+    td:nth-child(7n) {
       display: none;
     }
   }
@@ -33,7 +36,8 @@
 
 @media screen and (max-width: 767px) {
   .table {
-    th:nth-child(2), td:nth-child(7n - 5) {
+    th:nth-child(2),
+    td:nth-child(7n - 5) {
       display: none;
     }
   }

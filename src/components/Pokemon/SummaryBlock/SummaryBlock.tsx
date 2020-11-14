@@ -26,7 +26,10 @@ const SummaryBlock: FC<PropsType> = ({
       <div className={s.block__line}>
         <span className={s.block__key}>Abilities:</span>
         {abilities.map((ab) => (
-          <span className={classnames(s.tag, s.block__value)} key={ab.ability.name}>
+          <span
+            className={classnames(s.tag, s.block__value)}
+            key={ab.ability.name}
+          >
             {ab.ability.name}
           </span>
         ))}
@@ -35,7 +38,9 @@ const SummaryBlock: FC<PropsType> = ({
       <div className={s.block__line}>
         <span className={s.block__key}>Forms:</span>
         {forms.map((form) => (
-          <span className={classnames(s.tag, s.block__value)} key={form.name}>{form.name}</span>
+          <span className={classnames(s.tag, s.block__value)} key={form.name}>
+            {form.name}
+          </span>
         ))}
       </div>
 
@@ -57,7 +62,10 @@ const SummaryBlock: FC<PropsType> = ({
       <div className={s.block__line}>
         <span className={s.block__key}>Type:</span>
         {types.map((type) => (
-          <span className={classnames(s.tag, s.block__value)} key={type.type.name}>
+          <span
+            className={classnames(s.tag, s.block__value)}
+            key={type.type.name}
+          >
             {type.type.name}
           </span>
         ))}

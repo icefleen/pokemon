@@ -21,5 +21,6 @@ export const getMovesByVersion = createSelector(
   (moves, version) => {
     return moves.filter((move) =>
       move.version_group_details.some((v) => v.version_group.name === version)
-    )}
+    );
+  }
 );
