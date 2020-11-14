@@ -1,0 +1,28 @@
+@import "../../assets/variables.scss";
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px 50px;
+
+  &__item {
+    text-align: center;
+    padding: 10px;
+    background-color: $white;
+    text-transform: capitalize;
+    @extend %shadow;
+    cursor: pointer;
+  }
+}
+
+@media screen and(max-width: 1279px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and(max-width: 767px) {
+  .list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

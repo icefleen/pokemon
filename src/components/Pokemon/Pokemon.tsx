@@ -8,6 +8,7 @@ import {
   setSelectedVersion,
 } from "../../store/pokemonPage/pokemonReducer";
 import {
+  getPokemonPageIsLoading,
   getMovesByVersion,
   getPokemon,
   getSelectedVersion,
@@ -20,12 +21,14 @@ import Card from "../Card/Card";
 import SummaryBlock from "./SummaryBlock/SummaryBlock";
 import StatsBlock from "./StatsBlock/StatsBlock";
 import MovesBlock from "./MovesBlock/MovesBlock";
+import { Loader } from "../Loader/Loader";
 
 type PokemonParams = {
   id: string;
 };
 
 type PropsType = {
+  isLoading: boolean;
   pokemon: PokemonTypes.Pokemon | null;
   versions: Array<PokemonTypes.Ref>;
   selectedVersion: string | null;
@@ -37,6 +40,7 @@ type PropsType = {
 };
 
 const Pokemon: FC<PropsType> = ({
+  isLoading,
   pokemon,
   versions,
   selectedVersion,
@@ -57,6 +61,7 @@ const Pokemon: FC<PropsType> = ({
 
   return (
     <>
+      <Loader show={isLoading} />
       {pokemon && (
         <div className={s.pokemonPage}>
           <div className={s.pokemon}>
@@ -92,6 +97,7 @@ const Pokemon: FC<PropsType> = ({
 type OwnProps = RouteComponentProps<PokemonParams>;
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+  isLoading: getPokemonPageIsLoading(state),
   pokemon: getPokemon(state),
   versions: getVersions(state),
   selectedVersion: getSelectedVersion(state),

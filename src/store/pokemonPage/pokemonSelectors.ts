@@ -3,6 +3,9 @@ import { RootState } from "./../store";
 import * as PokemonTypes from "../../types/PokemonTypes";
 import { createSelector } from "reselect";
 
+export const getPokemonPageIsLoading = (state: RootState): boolean =>
+  state.pokemonPage.isLoading;
+
 export const getPokemon = (state: RootState): PokemonTypes.Pokemon | null =>
   state.pokemonPage.pokemon;
 

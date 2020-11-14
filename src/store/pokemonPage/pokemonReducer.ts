@@ -8,12 +8,14 @@ import {
 } from "./../../api/api";
 import * as PokemonTypes from "../../types/PokemonTypes";
 
+const TOGGLE_LOADING = "TOGGLE LOADING";
 const SET_POKEMOM = "SET POKEMON";
 const SET_VERSIONS = "SET VERSIONS";
 const SET_SELECTED_VERSION = "SET SELECTED VERSION";
 const SET_MOVES = "SET MOVES";
 
 type PokemonState = {
+  isLoading: boolean;
   pokemon: PokemonTypes.Pokemon | null;
   versions: Array<PokemonTypes.Ref>;
   selectedVersion: string | null;
@@ -21,6 +23,7 @@ type PokemonState = {
 };
 
 const initialState: PokemonState = {
+  isLoading: false,
   pokemon: null,
   versions: [],
   selectedVersion: null,
@@ -32,6 +35,9 @@ export const pokemonReducer = (
   action: ActionsType
 ): PokemonState => {
   switch (action.type) {
+    case TOGGLE_LOADING:
+      return { ...state, isLoading: action.isLoading };
+
     case SET_POKEMOM:
       return { ...state, pokemon: action.pokemon };
 
@@ -50,10 +56,23 @@ export const pokemonReducer = (
 };
 
 type ActionsType =
+  | ToggleLoadingAction
   | SetPokemonAction
   | SetVersionsAction
   | SetSelectedVersionAction
   | SetMovesAction;
+
+type ToggleLoading = typeof TOGGLE_LOADING;
+
+type ToggleLoadingAction = {
+  type: ToggleLoading;
+  isLoading: boolean;
+};
+
+const toggleLoading = (isLoading: boolean): ToggleLoadingAction => ({
+  type: TOGGLE_LOADING,
+  isLoading,
+});
 
 type SetPokemon = typeof SET_POKEMOM;
 
@@ -70,10 +89,16 @@ const setPokemom = (pokemon: PokemonTypes.Pokemon): SetPokemonAction => ({
 export const loadPokemon = (
   id: number
 ): ThunkAction<void, RootState, unknown, ActionsType> => async (dispatch) => {
+  dispatch(toggleLoading(true));
   const data = await fetchPokemonById(id);
 
+  const movesDetailed = await Promise.all(
+    data.moves.map((move) => fetchMoveStats(move))
+  );
+
+  dispatch(setMoves(movesDetailed));
   dispatch(setPokemom(data));
-  dispatch(loadMoves(data.moves));
+  dispatch(toggleLoading(false));
 };
 
 type SetVersions = typeof SET_VERSIONS;
@@ -124,13 +149,3 @@ const setMoves = (moves: Array<MoveDetailedInfo>): SetMovesAction => ({
   type: SET_MOVES,
   moves,
 });
-
-export const loadMoves = (
-  moves: Array<PokemonTypes.Move>
-): ThunkAction<void, RootState, unknown, ActionsType> => async (dispatch) => {
-  const movesDetailed = await Promise.all(
-    moves.map((move) => fetchMoveStats(move))
-  );
-
-  dispatch(setMoves(movesDetailed));
-};

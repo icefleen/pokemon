@@ -1,6 +1,9 @@
 import { RootState } from "../store";
 import * as PokemonTypes from "../../types/PokemonTypes";
 
+export const getHomePageIsLoading = (state: RootState): boolean =>
+  state.homeState.isLoading;
+
 export const getPokemons = (state: RootState): Array<PokemonTypes.Pokemon> =>
   state.homeState.pokemons;
 

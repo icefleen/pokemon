@@ -10,11 +10,14 @@ import Card from "../Card/Card";
 import { NavLink } from "react-router-dom";
 import {
   getCount,
+  getHomePageIsLoading,
   getOffset,
   getPokemons,
 } from "../../store/homePage/homeSelectors";
+import { Loader } from "../Loader/Loader";
 
 type PropsType = {
+  isLoading: boolean;
   pokemons: Array<PokemonTypes.Pokemon>;
   count: number;
   limit: number;
@@ -23,6 +26,7 @@ type PropsType = {
 };
 
 const Pokemons: FC<PropsType> = ({
+  isLoading,
   pokemons,
   count,
   limit,
@@ -50,53 +54,56 @@ const Pokemons: FC<PropsType> = ({
   };
 
   return (
-    <div className={s.gallery}>
-      <div className={classnames(s.gallery__cards, s.cards)}>
-        {pokemons.map((pokemon) => (
-          <NavLink to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
-            <Card
-              image={pokemon.sprites.other["official-artwork"].front_default}
-              title={pokemon.name}
-            />
-          </NavLink>
-        ))}
+    <>
+      <Loader show={isLoading} />
+      <div className={s.gallery}>
+        <div className={classnames(s.gallery__cards, s.cards)}>
+          {pokemons.map((pokemon) => (
+            <NavLink to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+              <Card
+                image={pokemon.sprites.other["official-artwork"].front_default}
+                title={pokemon.name}
+              />
+            </NavLink>
+          ))}
+        </div>
+        <div className={s.gallery__buttons}>
+          <Button
+            className={s["d-sm-none"]}
+            variant="primary"
+            disabled={offset < limit}
+            onClick={loadFirstPage}
+          >
+            &lt;&lt;<span className={s["d-sm-none"]}> First</span>
+          </Button>
+          <Button
+            variant="primary"
+            disabled={offset < limit}
+            onClick={loadPrevPage}
+          >
+            &lt;<span className={s["d-sm-none"]}> Prev</span>
+          </Button>
+          <Button variant="primary">{`${offset / limit + 1} / ${Math.ceil(
+            count / limit
+          )}`}</Button>
+          <Button
+            variant="primary"
+            disabled={offset + 8 >= count}
+            onClick={loadNextPage}
+          >
+            <span className={s["d-sm-none"]}>Next </span>&gt;
+          </Button>
+          <Button
+            className={s["d-sm-none"]}
+            variant="primary"
+            disabled={offset + 8 >= count}
+            onClick={loadLastPage}
+          >
+            <span className={s["d-sm-none"]}>Last </span>&gt;&gt;
+          </Button>
+        </div>
       </div>
-      <div className={s.gallery__buttons}>
-        <Button
-          className={s["d-sm-none"]}
-          variant="primary"
-          disabled={offset < limit}
-          onClick={loadFirstPage}
-        >
-          &lt;&lt;<span className={s["d-sm-none"]}> First</span>
-        </Button>
-        <Button
-          variant="primary"
-          disabled={offset < limit}
-          onClick={loadPrevPage}
-        >
-          &lt;<span className={s["d-sm-none"]}> Prev</span>
-        </Button>
-        <Button variant="primary">{`${offset / limit + 1} / ${Math.ceil(
-          count / limit
-        )}`}</Button>
-        <Button
-          variant="primary"
-          disabled={offset + 8 >= count}
-          onClick={loadNextPage}
-        >
-          <span className={s["d-sm-none"]}>Next </span>&gt;
-        </Button>
-        <Button
-          className={s["d-sm-none"]}
-          variant="primary"
-          disabled={offset + 8 >= count}
-          onClick={loadLastPage}
-        >
-          <span className={s["d-sm-none"]}>Last </span>&gt;&gt;
-        </Button>
-      </div>
-    </div>
+    </>
   );
 };
 
@@ -105,6 +112,7 @@ type OwnProps = {
 };
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+  isLoading: getHomePageIsLoading(state),
   pokemons: getPokemons(state),
   count: getCount(state),
   offset: getOffset(state),
