@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import classnames from "classnames";
 import s from "./App.module.scss";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
@@ -8,9 +7,10 @@ import Pokemons from "./components/Pokemons/Pokemons";
 import Pokemon from "./components/Pokemon/Pokemon";
 import Header from "./components/Header/Header";
 import Menu from "./components/Menu/Menu";
+import List from "./components/List/List";
 
 const App = () => {
-  const [menuShowing, setMenuShowing] = useState(true);
+  const [menuShowing, setMenuShowing] = useState(false);
 
   const openMenu = () => {
     setMenuShowing(true);
@@ -33,6 +33,7 @@ const App = () => {
 
               <Route path="/home" render={() => <Pokemons limit={8} />} />
               <Route path="/pokemon/:id" render={() => <Pokemon />} />
+              <Route path="/list" render={() => <List />} />
 
               <Route path="*" render={() => <div>404</div>} />
             </Switch>
