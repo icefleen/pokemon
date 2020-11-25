@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import s from "./Pokemon.module.scss";
 import { connect } from "react-redux";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   loadPokemon,
   loadVersions,
@@ -23,17 +23,12 @@ import StatsBlock from "./StatsBlock/StatsBlock";
 import MovesBlock from "./MovesBlock/MovesBlock";
 import { Loader } from "../Loader/Loader";
 
-type PokemonParams = {
-  id: string;
-};
-
 type PropsType = {
   isLoading: boolean;
   pokemon: PokemonTypes.Pokemon | null;
   versions: Array<PokemonTypes.Ref>;
   selectedVersion: string | null;
   moves: Array<MoveDetailedInfo>;
-  match: OwnProps;
   loadPokemon: (id: number) => void;
   loadVersions: () => void;
   setSelectedVersion: (version: string) => void;
@@ -45,14 +40,16 @@ const Pokemon: FC<PropsType> = ({
   versions,
   selectedVersion,
   moves,
-  match,
   loadPokemon,
   loadVersions,
   setSelectedVersion,
 }) => {
+  const {id} = useParams<{id: string}>();
+
   useEffect(() => {
-    loadPokemon(+match.match.params.id);
-  }, [loadPokemon, match]);
+    loadPokemon(+id);
+    debugger;
+  }, [loadPokemon, id]);
 
   useEffect(() => {
     if (!versions.length) loadVersions();
@@ -94,19 +91,12 @@ const Pokemon: FC<PropsType> = ({
   );
 };
 
-type OwnProps = RouteComponentProps<PokemonParams>;
-
-const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+const mapStateToProps = (state: RootState) => ({
   isLoading: getPokemonPageIsLoading(state),
   pokemon: getPokemon(state),
   versions: getVersions(state),
   selectedVersion: getSelectedVersion(state),
   moves: getMovesByVersion(state),
-  match: ownProps,
 });
 
-export default withRouter(
-  connect(mapStateToProps, { loadPokemon, loadVersions, setSelectedVersion })(
-    Pokemon
-  )
-);
+export default connect(mapStateToProps, { loadPokemon, loadVersions, setSelectedVersion })(Pokemon);
