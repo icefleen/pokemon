@@ -44,7 +44,7 @@ const Pokemon: FC<PropsType> = ({
   loadVersions,
   setSelectedVersion,
 }) => {
-  const {id} = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     loadPokemon(+id);
@@ -99,4 +99,8 @@ const mapStateToProps = (state: RootState) => ({
   moves: getMovesByVersion(state),
 });
 
-export default connect(mapStateToProps, { loadPokemon, loadVersions, setSelectedVersion })(Pokemon);
+export default connect(mapStateToProps, {
+  loadPokemon,
+  loadVersions,
+  setSelectedVersion,
+})(Pokemon);
